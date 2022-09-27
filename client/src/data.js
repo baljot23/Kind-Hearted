@@ -83,4 +83,8 @@ export const popularProducts = [
     id: 8,
     img: "https://i.pinimg.com/originals/bf/99/5b/bf995bc4271dcdd36764a9a253901d3b.jpg",
   },
+  {
+    id: 9,
+    img: "https://i.pinimg.com/564x/77/f2/64/77f2647a2a18303cc03e726f36d8dd0b.jpg",
+  },
 ];

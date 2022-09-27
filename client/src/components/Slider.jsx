@@ -5,6 +5,7 @@ import {
 import { useState } from "react";
 import styled from "styled-components";
 import { sliderItems } from "../data";
+import { mobile } from "../responsive";
 
 const Slider = () => {
   const [slideIndex, setSlideIndex] = useState(0);
@@ -51,6 +52,7 @@ const Container = styled.div`
   background-color: #f2e2e5;
   position: relative;
   overflow: hidden;
+  ${mobile({ display: "none" })}
 `;
 
 const Arrow = styled.div`
