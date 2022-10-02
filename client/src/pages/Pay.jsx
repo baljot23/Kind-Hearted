@@ -2,27 +2,30 @@ import React, { useState, useEffect } from "react";
 import StripeCheckout from "react-stripe-checkout";
 import styled from "styled-components";
 import axios from "axios";
-const KEY =
-  "pk_test_51LntngFR1tFiQDgrW02Nsix0eXC8hJLgMG4vIzPyc3GHNDfBVHsDsHeO42NKct81uua0NTLiH1AozkLlv3RtbUOq00IkhVkZoK";
+
 const Pay = () => {
   const [stripeToken, setStripeToken] = useState(null);
 
   const onToken = (token) => {
     setStripeToken(token);
   };
-  const makerequest = async () => {
-    try {
-      let res = await axios.post("http://localhost:5000/api/checkout/payment", {
-        tokenId: stripeToken.id,
-        amount: 2000,
-      });
-      console.log(res.response.data);
-    } catch (err) {
-      console.log(err.response.data);
-    }
-  };
+
   useEffect(() => {
-    stripeToken && makerequest();
+    const makeRequest = async () => {
+      try {
+        const response = await axios.post(
+          "http://localhost:5000/api/checkout/payment",
+          {
+            tokenId: stripeToken.id,
+            amount: 2000,
+          }
+        );
+        console.log(response.data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    stripeToken && makeRequest();
   }, [stripeToken]);
 
   return (
@@ -36,7 +39,7 @@ const Pay = () => {
         amount={2000}
         currency="USD"
         token={onToken}
-        stripeKey={KEY}
+        stripeKey="pk_test_51LntngFR1tFiQDgrW02Nsix0eXC8hJLgMG4vIzPyc3GHNDfBVHsDsHeO42NKct81uua0NTLiH1AozkLlv3RtbUOq00IkhVkZoK"
       >
         <PayButton>Pay Now</PayButton>
       </StripeCheckout>
