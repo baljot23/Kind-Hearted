@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Product from "./Product";
 import { popularProducts } from "../data";
 import styled from "styled-components";
+import { useEffect, useState } from "react";
 import axios from "axios";
 
 const Products = ({ cat, filters, sort }) => {
@@ -9,20 +10,62 @@ const Products = ({ cat, filters, sort }) => {
   const [filteredProducts, setFilteredProducts] = useState([]);
 
   useEffect(() => {
-    const getProduts = async () => {
+    const getProducts = async () => {
       try {
-        const res = await axios.get("http://localhost:5000/api/products");
-        console.log(res);
-      } catch (err) {}
+        const res = await axios.get(
+          cat
+            ? `http://localhost:5000/api/products?category=${cat}`
+            : "http://localhost:5000/api/products"
+        );
+        setProducts(res.data);
+      } catch (err) {
+        console.log(err);
+      }
     };
-    getProduts();
+    getProducts();
   }, [cat]);
+
+  //Filter products (categories,color)
+
+  useEffect(() => {
+    cat &&
+      setFilteredProducts(
+        products.filter((item) =>
+          Object.entries(filters).every(([key, value]) =>
+            item[key].includes(value)
+          )
+        )
+      );
+  }, [products, cat, filters]);
+
+  //Sort Products (newest,asc,desc)
+
+  useEffect(() => {
+    if (sort === "newest") {
+      setFilteredProducts((prev) =>
+        [...prev].sort((a, b) => a.createdAt - b.createdAt)
+      );
+    } else if (sort === "asc") {
+      setFilteredProducts((prev) =>
+        [...prev].sort((a, b) => a.price - b.price)
+      );
+    } else {
+      setFilteredProducts((prev) =>
+        [...prev].sort((a, b) => b.price - a.price)
+      );
+    }
+  }, [sort]);
+
+  console.log(products);
 
   return (
     <Container>
-      {popularProducts.map((item) => (
+      {cat
+        ? filteredProducts.map((item) => <Product item={item} key={item.id} />)
+        : products.map((item) => <Product item={item} key={item.id} />)}
+      {/* {popularProducts.map((item) => (
         <Product item={item} key={item.id} />
-      ))}
+      ))} */}
     </Container>
   );
 };
