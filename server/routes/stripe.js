@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const KEY = process.env.STRIPE_KEY;
-const stripe = require("stripe")(KEY);
+const Stripe = require("stripe");
+const stripe = Stripe(KEY);
 
 router.post("/payment", (req, res) => {
   stripe.charges.create(
@@ -17,6 +18,12 @@ router.post("/payment", (req, res) => {
       }
     }
   );
+  stripe.checkout.sessions.create({
+    success_url: "https://example.com/success",
+    cancel_url: "https://example.com/cancel",
+    line_items: [{ price: "price_H5ggYwtDq4fbrJ", quantity: 2 }],
+    mode: "payment",
+  });
 });
 
 module.exports = router;

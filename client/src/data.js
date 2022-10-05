@@ -27,26 +27,31 @@ export const categories = [
     id: 1,
     img: "https://i.pinimg.com/originals/64/57/c9/6457c97eea5c7a19edfbb400599547ba.jpg",
     title: "BEADED STRAP FOR PHONE CASE",
+    cat: "phone",
   },
   {
     id: 2,
     img: "https://i.pinimg.com/originals/8a/c6/58/8ac6581187030ad552139bde59f8b152.jpg",
     title: "BEADED STRAP FOR SHOES",
+    cat: "shoes",
   },
   {
     id: 3,
     img: "https://i.pinimg.com/originals/b1/dd/18/b1dd185f33f444cab4262696287fe719.jpg",
     title: "BEADED BRACELET",
+    cat: "bracelet",
   },
   {
     id: 4,
     img: "https://i.pinimg.com/originals/45/f7/74/45f774e439ed588e844b14cefa494841.jpg",
     title: "BEADED NECKLACE",
+    cat: "necklace",
   },
   {
     id: 5,
     img: "https://i.etsystatic.com/7276531/r/il/65384a/3399588629/il_1140xN.3399588629_pzed.jpg",
     title: "BEADED ANKLET",
+    cat: "anklet",
   },
 ];
 
